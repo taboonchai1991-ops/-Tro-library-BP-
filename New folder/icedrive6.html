@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>พระเครื่อง 77 จังหวัด | คลังข้อมูลมรดกไทย</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Kanit', sans-serif;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s, backdrop-filter 0.2s;
+    }
+
+    /* ===== GLOBAL BACKGROUND WITH OVERLAY (มุมสูงอยุธยา) ===== */
+    body {
+      background-color: #0a1f0e;
+      position: relative;
+      color: #f0fff0;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+
+    /* ภาพมุมสูง เมืองมรดกโลกอยุธยา */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://od.lk/s/N18yODQ0OTcyMDBf/789.jpg') center center / cover no-repeat fixed;
+      z-index: -2;
+    }
+
+    /* Overlay โปร่งแสง */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    /* LIGHT MODE */
+    body.light::after {
+      background: rgba(255, 245, 225, 0.85);
+    }
+    body.light {
+      color: #1a3a2a;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* toolbar glass */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      background: rgba(0, 20, 0, 0.45);
+      backdrop-filter: blur(12px);
+      padding: 12px 24px;
+      border-radius: 60px;
+      border: 1px solid rgba(210, 180, 110, 0.6);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    body.light .toolbar {
+      background: rgba(255, 248, 225, 0.85);
+      border-color: #c9aa6f;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #f9f2b0, #a3f0c0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+    }
+    body.light h1 {
+      background: linear-gradient(135deg, #2c5e2a, #1f6e4a);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .search-area {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .search-box {
+      padding: 10px 20px;
+      border-radius: 48px;
+      border: none;
+      background: rgba(30, 42, 34, 0.85);
+      backdrop-filter: blur(8px);
+      color: #e0ffe8;
+      font-size: 1rem;
+      width: 260px;
+      outline: none;
+      box-shadow: 0 0 0 1px #c5a15b;
+    }
+    body.light .search-box {
+      background: rgba(255, 249, 239, 0.9);
+      color: #1e3a2a;
+    }
+    .search-box:focus {
+      box-shadow: 0 0 0 2px #f5c542;
+    }
+    button {
+      background: rgba(43, 79, 56, 0.85);
+      backdrop-filter: blur(8px);
+      border: none;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fcf9e1;
+      transition: 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    body.light button {
+      background: rgba(238, 223, 168, 0.95);
+      color: #2c5836;
+    }
+    button:hover {
+      transform: scale(0.97);
+      background: #4f8b60;
+      color: white;
+    }
+    .voice-btn {
+      background: rgba(60, 110, 80, 0.85);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stats {
+      margin: 15px 5px 20px 5px;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 60px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(210, 180, 110, 0.5);
+    }
+    body.light .stats {
+      background: rgba(242, 229, 207, 0.85);
+      color: #2a5a3a;
+    }
+
+    /* ====== GALLERY - การ์ดโปร่งใส กระจกสีขาวขุ่น สวยงาม ====== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0 2.5rem;
+    }
+
+    /* การ์ดแบบ Glassmorphism สีขาวใส มีความลึก */
+    .card {
+      background: rgba(255, 255, 245, 0.2);
+      backdrop-filter: blur(16px);
+      border-radius: 36px;
+      padding: 1.2rem 1rem 1rem 1rem;
+      border: 1px solid rgba(255, 235, 190, 0.7);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* เมื่อ light mode การ์ดจะขาวใสแต่มีมิติ */
+    body.light .card {
+      background: rgba(255, 253, 245, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(200, 170, 100, 0.7);
+      box-shadow: 0 12px 28px rgba(80, 50, 20, 0.15);
+      color: #1e3a2a;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 28px rgba(212, 175, 55, 0.8);
+      border-color: #f3d382;
+      background: rgba(255, 255, 250, 0.35);
+      backdrop-filter: blur(20px);
+    }
+
+    body.light .card:hover {
+      background: rgba(255, 252, 235, 0.85);
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      word-break: break-word;
+      color: #ffffe0;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    body.light .card-name {
+      color: #1f5430;
+      text-shadow: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(31, 77, 44, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+    body.light .badge {
+      background: #e0c894cc;
+      color: #2b482c;
+    }
+
+    .keywords {
+      font-size: 0.75rem;
+      opacity: 0.95;
+      margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .keyword-tag {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      padding: 2px 12px;
+      border-radius: 30px;
+    }
+    body.light .keyword-tag {
+      background: rgba(210, 180, 120, 0.6);
+      color: #2e593a;
+    }
+
+    .card-link {
+      margin-top: 12px;
+      text-align: center;
+      background: rgba(47, 84, 60, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 40px;
+      padding: 8px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    body.light .card-link {
+      background: rgba(238, 223, 168, 0.9);
+    }
+    .card-link a {
+      color: #faf9cd;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+    }
+    body.light .card-link a {
+      color: #2a623a;
+    }
+    .card-link:hover {
+      background: #478a5c;
+    }
+    .no-link {
+      color: #efebd0;
+      font-style: italic;
+      font-size: 0.8rem;
+    }
+    body.light .no-link {
+      color: #8b7652;
+    }
+
+    .footer {
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 0.8rem;
+      border-top: 1px dashed rgba(210, 180, 110, 0.6);
+      padding-top: 20px;
+      background: transparent;
+      backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 680px) {
+      body { padding: 1rem; }
+      .toolbar { flex-direction: column; align-items: stretch; border-radius: 32px; }
+      .search-area { justify-content: center; }
+      .search-box { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="toolbar">
+    <h1>📿 พระเครื่องทั่วไทย · 77 จังหวัด</h1>
+    <div class="search-area">
+      <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาชื่อ, จังหวัด, เกจิ, วัด...">
+      <button onclick="performSearch()">ค้นหา</button>
+      <button class="voice-btn" onclick="startVoiceSearch()">🎤 ค้นหาด้วยเสียง</button>
+      <button class="toggle-btn" onclick="toggleTheme()">🌙 / ☀️</button>
+    </div>
+  </div>
+  
+  <div class="stats" id="statsDisplay">✨ กำลังโหลดข้อมูลพระเครื่อง...</div>
+  
+  <div class="gallery" id="galleryContainer">
+    <!-- dynamic cards -->
+  </div>
+  <div class="footer">
+    ⚜️ ฐานข้อมูลพระเครื่องโบราณ เกจิอาจารย์ และพระกรุครบ 77 จังหวัด  |  ภาพพื้นหลัง : มุมสูงเมืองมรดกโลกอยุธยา (วัดพระศรีสรรเพชญ์) ⚜️
+  </div>
+</div>
+
+<script>
+  // ==============================================
+  // ข้อมูลพระเครื่องสมบูรณ์ (77 จังหวัด + รายการพิเศษ)
+  // ==============================================
+  const amulets = [
+    { name: "หลวงปู่ฝั้น อาจาโร วัดป่าอุดมสมพร", category: "forest", url: "https://icedrive.net/s/YTVRj2Q2F5C7jw7iVATySXz12t4D", keywords: ["หลวงปู่ฝั้น","ฝั้น","วัดป่า","กรรมฐาน","สกลนคร"] },
+    { name: "พระสามกรุเวียงท่ากานเชียงใหม่", category: "ancient", url: "https://photos.app.goo.gl/NdjgmtvmYvhDnP1v7", keywords: ["เวียงท่ากาน","สามกรุ","เชียงใหม่"] },
+    { name: "พระผงสุพรรณ", category: "ancient", url: "https://photos.app.goo.gl/yEmxTfQwAXW33bAw7", keywords: ["สุพรรณ"] },
+    { name: "พระเปิมลำพูน", category: "ancient", url: "https://photos.app.goo.gl/WQLyGwurT1kKj5Kn9", keywords: ["ลำพูน","พระเปิม"] },
+    { name: "พระรอดมหาวันพิมพ์กลาง", category: "ancient", url: "https://photos.app.goo.gl/SHUqBow99Rx5Ar1R6", keywords: ["พระรอด","มหาวัน","พิมพ์กลาง"] },
+    { name: "พระรอดมหาวันพิมพ์ใหญ่", category: "ancient", url: "https://icedrive.net/s/fhBkPzfWzVVVGSPSgYkt3AvR3NyF", keywords: ["พระรอด","พิมพ์ใหญ่"] },
+    { name: "พระกรุวังบัว เพชรบุรี", category: "ancient", url: "https://icedrive.net/s/3i8uCCFhB2Z5F4xv1tx2uikikYTa", keywords: ["กรุวังบัว","เพชรบุรี"] },
+    { name: "หลวงปู่ไข่ วัดเชิงเลน", category: "monk", url: "https://icedrive.net/s/Q5S1Yi6twu4xQTwf58gR3DPRY3uy", keywords: ["หลวงปู่ไข่","วัดเชิงเลน"] },
+    { name: "หลวงพ่อเกษร วัดท่าพระ", category: "monk", url: "https://icedrive.net/s/jb992PRiWg2htBuxaB4bZ1f6R7i8", keywords: ["หลวงพ่อเกษร"] },
+    { name: "หลวงพ่อแก้ว พิมพ์ปั่น", category: "monk", url: "https://icedrive.net/s/kB2a6552k1QyT4bzhaGYtB1F5fT7", keywords: ["หลวงพ่อแก้ว"] },
+    { name: "หลวงพ่อวงษ์ วัดทุ่งผักกูด", category: "monk", url: "https://icedrive.net/s/kB2a6552k1QyT4bzhaGYtB1F5fT7", keywords: ["หลวงพ่อวงษ์"] },
+    { name: "หลวงปู่พริ้ง วัดบางปะกอก", category: "monk", url: "https://icedrive.net/s/1Bjz968YDNt3YaiQ8tBR1FTW3gX8", keywords: ["หลวงปู่พริ้ง"] },
+    { name: "พระเครื่องกรุงเทพมหานคร", category: "region", url: "https://photos.app.goo.gl/GcmfNfKeiCzaTsFH8", keywords: ["กรุงเทพ","กทม"] },
+    { name: "พระเครื่องเมืองอยุธยา", category: "region", url: "https://photos.app.goo.gl/4XQMKJAjMaJmFzZAA", keywords: ["อยุธยา"] },
+    { name: "พระเครื่องเมืองอุตรดิตถ์", category: "region", url: "https://photos.app.goo.gl/ghfZLTKCveMozpgk7", keywords: ["อุตรดิตถ์"] },
+    { name: "พระเครื่องนครนายกและปทุมธานี", category: "region", url: "https://photos.app.goo.gl/jJDwJFZQPw72Wsr6A", keywords: ["นครนายก","ปทุม"] },
+    { name: "พระเครื่องเมืองตรัง", category: "region", url: "https://photos.app.goo.gl/BnHAyBYBLhnTxndCA", keywords: ["ตรัง"] },
+    { name: "พระเครื่องอ่างทอง", category: "region", url: "https://photos.app.goo.gl/nw9RMNeWse2gnxgk7", keywords: ["อ่างทอง"] },
+    { name: "พระเครื่องนครปฐม", category: "region", url: "https://photos.app.goo.gl/UQ2cR1LrqMvJePWVA", keywords: ["นครปฐม"] },
+    { name: "พระพุทโธน้อย แม่ชีบุญเรือน", category: "special", url: "https://icedrive.net/s/vYkgSS3vTYAvVbkA97vSTki4tfXF", keywords: ["พุทโธน้อย","แม่ชีบุญเรือน"] },
+    { name: "พระปรุหนัง หลวงพ่อเนียม", category: "special", url: "https://mega.nz/folder/bK4yjIaA#iLp1GuhiwRVVpPshQ1YpXQ", keywords: ["ปรุหนัง","เนียม"] },
+    { name: "พระพิมพ์เศียรแหลม หลวงพ่อเนียม", category: "special", url: "https://mega.nz/folder/GGRmEajK#0fctrh7UpyNlGaZU5Yftwg", keywords: ["เศียรแหลม"] },
+    { name: "พระเชตุพน หลวงพ่อเนียม", category: "special", url: "https://icedrive.net/s/9f4SPuf1Yvg5C8D4Q3u9vg1YBNW4", keywords: ["เชตุพน"] },
+
+    // ========== 77 จังหวัด (ครบถ้วนทุกจังหวัด) ==========
+    { name: "พระเครื่องกระบี่", category: "region", url: "", keywords: ["กระบี่"] },
+    { name: "พระเครื่องกรุงเทพมหานคร (กทม)", category: "region", url: "https://photos.app.goo.gl/GcmfNfKeiCzaTsFH8", keywords: ["กรุงเทพ"] },
+    { name: "พระเครื่องกาญจนบุรี", category: "region", url: "", keywords: ["กาญจนบุรี"] },
+    { name: "พระเครื่องกาฬสินธุ์", category: "region", url: "", keywords: ["กาฬสินธุ์"] },
+    { name: "พระเครื่องกำแพงเพชร", category: "region", url: "", keywords: ["กำแพงเพชร"] },
+    { name: "พระเครื่องขอนแก่น", category: "region", url: "", keywords: ["ขอนแก่น"] },
+    { name: "พระเครื่องจันทบุรี", category: "region", url: "", keywords: ["จันทบุรี"] },
+    { name: "พระเครื่องฉะเชิงเทรา", category: "region", url: "", keywords: ["ฉะเชิงเทรา"] },
+    { name: "พระเครื่องชลบุรี", category: "region", url: "", keywords: ["ชลบุรี"] },
+    { name: "พระเครื่องชัยนาท", category: "region", url: "", keywords: ["ชัยนาท"] },
+    { name: "พระเครื่องชัยภูมิ", category: "region", url: "", keywords: ["ชัยภูมิ"] },
+    { name: "พระเครื่องชุมพร", category: "region", url: "", keywords: ["ชุมพร"] },
+    { name: "พระเครื่องเชียงราย", category: "region", url: "", keywords: ["เชียงราย"] },
+    { name: "พระเครื่องเชียงใหม่", category: "region", url: "https://photos.app.goo.gl/NdjgmtvmYvhDnP1v7", keywords: ["เชียงใหม่"] },
+    { name: "พระเครื่องตรัง", category: "region", url: "https://photos.app.goo.gl/BnHAyBYBLhnTxndCA", keywords: ["ตรัง"] },
+    { name: "พระเครื่องตราด", category: "region", url: "", keywords: ["ตราด"] },
+    { name: "พระเครื่องตาก", category: "region", url: "", keywords: ["ตาก"] },
+    { name: "พระเครื่องนครนายก", category: "region", url: "", keywords: ["นครนายก"] },
+    { name: "พระเครื่องนครปฐม", category: "region", url: "https://photos.app.goo.gl/UQ2cR1LrqMvJePWVA", keywords: ["นครปฐม"] },
+    { name: "พระเครื่องนครพนม", category: "region", url: "", keywords: ["นครพนม"] },
+    { name: "พระเครื่องนครราชสีมา", category: "region", url: "", keywords: ["นครราชสีมา"] },
+    { name: "พระเครื่องนครศรีธรรมราช", category: "region", url: "", keywords: ["นครศรีธรรมราช"] },
+    { name: "พระเครื่องนครสวรรค์", category: "region", url: "", keywords: ["นครสวรรค์"] },
+    { name: "พระเครื่องนนทบุรี", category: "region", url: "", keywords: ["นนทบุรี"] },
+    { name: "พระเครื่องนราธิวาส", category: "region", url: "", keywords: ["นราธิวาส"] },
+    { name: "พระเครื่องน่าน", category: "region", url: "", keywords: ["น่าน"] },
+    { name: "พระเครื่องบึงกาฬ", category: "region", url: "", keywords: ["บึงกาฬ"] },
+    { name: "พระเครื่องบุรีรัมย์", category: "region", url: "", keywords: ["บุรีรัมย์"] },
+    { name: "พระเครื่องปทุมธานี", category: "region", url: "", keywords: ["ปทุมธานี"] },
+    { name: "พระเครื่องประจวบคีรีขันธ์", category: "region", url: "", keywords: ["ประจวบคีรีขันธ์"] },
+    { name: "พระเครื่องปราจีนบุรี", category: "region", url: "", keywords: ["ปราจีนบุรี"] },
+    { name: "พระเครื่องปัตตานี", category: "region", url: "", keywords: ["ปัตตานี"] },
+    { name: "พระเครื่องพระนครศรีอยุธยา", category: "region", url: "https://photos.app.goo.gl/4XQMKJAjMaJmFzZAA", keywords: ["อยุธยา","พระนครศรีอยุธยา"] },
+    { name: "พระเครื่องพะเยา", category: "region", url: "", keywords: ["พะเยา"] },
+    { name: "พระเครื่องพังงา", category: "region", url: "", keywords: ["พังงา"] },
+    { name: "พระเครื่องพัทลุง", category: "region", url: "", keywords: ["พัทลุง"] },
+    { name: "พระเครื่องพิจิตร", category: "region", url: "", keywords: ["พิจิตร"] },
+    { name: "พระเครื่องพิษณุโลก", category: "region", url: "", keywords: ["พิษณุโลก"] },
+    { name: "พระเครื่องเพชรบุรี", category: "region", url: "https://icedrive.net/s/3i8uCCFhB2Z5F4xv1tx2uikikYTa", keywords: ["เพชรบุรี"] },
+    { name: "พระเครื่องเพชรบูรณ์", category: "region", url: "", keywords: ["เพชรบูรณ์"] },
+    { name: "พระเครื่องแพร่", category: "region", url: "", keywords: ["แพร่"] },
+    { name: "พระเครื่องภูเก็ต", category: "region", url: "", keywords: ["ภูเก็ต"] },
+    { name: "พระเครื่องมหาสารคาม", category: "region", url: "", keywords: ["มหาสารคาม"] },
+    { name: "พระเครื่องมุกดาหาร", category: "region", url: "", keywords: ["มุกดาหาร"] },
+    { name: "พระเครื่องแม่ฮ่องสอน", category: "region", url: "", keywords: ["แม่ฮ่องสอน"] },
+    { name: "พระเครื่องยโสธร", category: "region", url: "", keywords: ["ยโสธร"] },
+    { name: "พระเครื่องยะลา", category: "region", url: "", keywords: ["ยะลา"] },
+    { name: "พระเครื่องร้อยเอ็ด", category: "region", url: "", keywords: ["ร้อยเอ็ด"] },
+    { name: "พระเครื่องระนอง", category: "region", url: "", keywords: ["ระนอง"] },
+    { name: "พระเครื่องระยอง", category: "region", url: "", keywords: ["ระยอง"] },
+    { name: "พระเครื่องราชบุรี", category: "region", url: "", keywords: ["ราชบุรี"] },
+    { name: "พระเครื่องลพบุรี", category: "region", url: "", keywords: ["ลพบุรี"] },
+    { name: "พระเครื่องลำปาง", category: "region", url: "", keywords: ["ลำปาง"] },
+    { name: "พระเครื่องลำพูน", category: "region", url: "https://photos.app.goo.gl/WQLyGwurT1kKj5Kn9", keywords: ["ลำพูน"] },
+    { name: "พระเครื่องเลย", category: "region", url: "", keywords: ["เลย"] },
+    { name: "พระเครื่องศรีสะเกษ", category: "region", url: "", keywords: ["ศรีสะเกษ"] },
+    { name: "พระเครื่องสกลนคร", category: "region", url: "", keywords: ["สกลนคร"] },
+    { name: "พระเครื่องสงขลา", category: "region", url: "", keywords: ["สงขลา"] },
+    { name: "พระเครื่องสตูล", category: "region", url: "", keywords: ["สตูล"] },
+    { name: "พระเครื่องสมุทรปราการ", category: "region", url: "", keywords: ["สมุทรปราการ"] },
+    { name: "พระเครื่องสมุทรสงคราม", category: "region", url: "", keywords: ["สมุทรสงคราม"] },
+    { name: "พระเครื่องสมุทรสาคร", category: "region", url: "", keywords: ["สมุทรสาคร"] },
+    { name: "พระเครื่องสระแก้ว", category: "region", url: "", keywords: ["สระแก้ว"] },
+    { name: "พระเครื่องสระบุรี", category: "region", url: "", keywords: ["สระบุรี"] },
+    { name: "พระเครื่องสิงห์บุรี", category: "region", url: "", keywords: ["สิงห์บุรี"] },
+    { name: "พระเครื่องสุโขทัย", category: "region", url: "", keywords: ["สุโขทัย"] },
+    { name: "พระเครื่องสุพรรณบุรี", category: "region", url: "https://photos.app.goo.gl/yEmxTfQwAXW33bAw7", keywords: ["สุพรรณบุรี"] },
+    { name: "พระเครื่องสุราษฎร์ธานี", category: "region", url: "", keywords: ["สุราษฎร์ธานี"] },
+    { name: "พระเครื่องสุรินทร์", category: "region", url: "", keywords: ["สุรินทร์"] },
+    { name: "พระเครื่องหนองคาย", category: "region", url: "", keywords: ["หนองคาย"] },
+    { name: "พระเครื่องหนองบัวลำภู", category: "region", url: "", keywords: ["หนองบัวลำภู"] },
+    { name: "พระเครื่องอ่างทอง", category: "region", url: "https://icedrive.net/s/PyBFvCxv6ybz4iT4G8YjZTkwGB3R", keywords: ["อ่างทอง"] },
+    { name: "พระเครื่องอำนาจเจริญ", category: "region", url: "", keywords: ["อำนาจเจริญ"] },
+    { name: "พระเครื่องอุดรธานี", category: "region", url: "", keywords: ["อุดรธานี"] },
+    { name: "พระเครื่องอุตรดิตถ์", category: "region", url: "https://photos.app.goo.gl/ghfZLTKCveMozpgk7", keywords: ["อุตรดิตถ์"] },
+    { name: "พระเครื่องอุทัยธานี", category: "region", url: "", keywords: ["อุทัยธานี"] },
+    { name: "พระเครื่องอุบลราชธานี", category: "region", url: "", keywords: ["อุบลราชธานี"] }
+  ];
+
+  function getCategoryThai(cat) {
+    const map = {
+      forest: "🌲 สายกรรมฐาน",
+      ancient: "🏺 พระกรุ / โบราณคดี",
+      monk: "🧘 พระเกจิอาจารย์",
+      region: "🏙 พระเครื่องประจำจังหวัด",
+      special: "🔥 มรดกพุทธศิลป์"
+    };
+    return map[cat] || "📿 อื่นๆ";
+  }
+
+  let currentFiltered = [...amulets];
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  function renderCards(items) {
+    const gallery = document.getElementById('galleryContainer');
+    if (!gallery) return;
+    if (items.length === 0) {
+      gallery.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:3rem; background: rgba(0,0,0,0.4); backdrop-filter: blur(12px); border-radius: 48px;">❌ ไม่พบพระเครื่องที่ค้นหา ลองใช้คำอื่น หรือค้นหาด้วยเสียงอีกครั้ง</div>`;
+      document.getElementById('statsDisplay').innerHTML = `🔍 ไม่พบรายการ (0 รายการ)`;
+      return;
+    }
+    let html = '';
+    for (let am of items) {
+      const catThai = getCategoryThai(am.category);
+      const kw = am.keywords || [];
+      const kwHtml = kw.length ? `<div class="keywords">${kw.map(k => `<span class="keyword-tag">#${escapeHtml(k)}</span>`).join('')}</div>` : '';
+      const linkHtml = am.url && am.url.trim() !== "" 
+        ? `<div class="card-link"><a href="${am.url}" target="_blank" rel="noopener noreferrer">🔗 ดูรายละเอียด / ชมภาพ</a></div>`
+        : `<div class="card-link no-link" style="background: rgba(58, 74, 56, 0.7);"><span>📭 กำลังเพิ่มข้อมูลลิงก์</span></div>`;
+      
+      html += `
+        <div class="card">
+          <div class="badge">${catThai}</div>
+          <div class="card-name">${escapeHtml(am.name)}</div>
+          ${kwHtml}
+          ${linkHtml}
+        </div>
+      `;
+    }
+    gallery.innerHTML = html;
+    document.getElementById('statsDisplay').innerHTML = `✨ พบพระเครื่องทั้งสิ้น ${items.length} รายการ (คลังข้อมูล ${amulets.length} รายการ) | ภาพพื้นหลัง : มรดกโลกอยุธยา`;
+  }
+
+  function performSearch() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    if (query === "") {
+      currentFiltered = [...amulets];
+      renderCards(currentFiltered);
+      return;
+    }
+    const filtered = amulets.filter(item => {
+      const nameMatch = item.name.toLowerCase().includes(query);
+      const kwMatch = item.keywords.some(k => k.toLowerCase().includes(query));
+      const catMatch = getCategoryThai(item.category).toLowerCase().includes(query);
+      return nameMatch || kwMatch || catMatch;
+    });
+    currentFiltered = filtered;
+    renderCards(currentFiltered);
+  }
+
+  let recognition = null;
+  function startVoiceSearch() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert("เบราว์เซอร์ของคุณไม่รองรับการค้นหาด้วยเสียง (แนะนำ Chrome, Edge, Safari)");
+      return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'th-TH';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    
+    recognition.onstart = () => {
+      const btn = document.querySelector('.voice-btn');
+      btn.textContent = "🎙️ กำลังฟังเสียง...";
+      btn.style.background = "#6a9c70";
+    };
+    recognition.onerror = (event) => {
+      console.error(event.error);
+      alert("ไม่สามารถรับเสียงได้: " + event.error);
+      resetVoiceBtn();
+    };
+    recognition.onend = () => resetVoiceBtn();
+    recognition.onresult = (event) => {
+      const spoken = event.results[0][0].transcript;
+      document.getElementById('searchInput').value = spoken;
+      performSearch();
+      resetVoiceBtn();
+    };
+    recognition.start();
+  }
+  
+  function resetVoiceBtn() {
+    const btn = document.querySelector('.voice-btn');
+    if(btn) {
+      btn.textContent = "🎤 ค้นหาด้วยเสียง";
+      btn.style.background = "";
+    }
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('amuletsTheme', isLight ? 'light' : 'dark');
+  }
+  
+  function loadTheme() {
+    const saved = localStorage.getItem('amuletsTheme');
+    if (saved === 'light') document.body.classList.add('light');
+    else document.body.classList.remove('light');
+  }
+
+  window.onload = () => {
+    loadTheme();
+    renderCards(amulets);
+    const searchBox = document.getElementById('searchInput');
+    searchBox.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') performSearch();
+    });
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* =================================================
+   VOICE SEARCH SYSTEM : พระลึกลับแดนสยาม
+   FILE : voice.js
+   ใช้ร่วมกับ amulet-data.js
+================================================= */
+
+/* 🔊 ระบบพูดตอบกลับ */
+function speak(message) {
+  const speech = new SpeechSynthesisUtterance(message);
+  speech.lang = "th-TH";
+  speech.rate = 0.95;
+  speech.pitch = 1;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(speech);
+}
+
+/* 📜 อ่านรายชื่อพระทั้งหมด (กำหนดข้อความตายตัว) */
+function listAllAmulets() {
+
+  const fixedList =
+    "พระสามกรุเวียงท่ากานเชียงใหม่ " +
+    "พระเครื่องกรุงเทพมหานคร " +
+    "พระเครื่องเมืองอยุธยา " +
+    "พระเครื่องเมืองอุตรดิตถ์ " +
+    "หลวงปู่ฝั้น อาจาโร วัดป่าอุดมสมพร " +
+    "พระเครื่องนครนายกและปทุมธานี " +
+    "หลวงปู่ไข่ วัดเชิงเลน " +
+    "พระเครื่องเมืองตรัง " +
+    "พระเครื่องอ่างทอง " +
+    "พระผงสุพรรณ " +
+    "พระเปิมลำพูน " +
+    "พระรอดมหาวันพิมพ์กลาง " +
+    "พระเครื่องนครปฐม " +
+    "พระรอดมหาวันพิมพ์ใหญ่ " +
+    "พระพุทโธน้อย แม่ชีบุญเรือน " +
+    "หลวงพ่อเกษร วัดท่าพระ " +
+    "พระปรุหนัง หลวงพ่อเนียม " +
+    "หลวงพ่อแก้ว พิมพ์ปั่น " +
+    "หลวงพ่อวงษ์ วัดทุ่งผักกูด " +
+    "หลวงปู่พริ้ง วัดบางปะกอก " +
+    "พระกรุวังบัว เพชรบุรี " +
+    "พระพิมพ์เศียรแหลม หลวงพ่อเนียม " +
+    "พระเชตุพน หลวงพ่อเนียม";
+
+  speak("ในระบบมีพระดังต่อไปนี้");
+  setTimeout(() => speak(fixedList), 1200);
+}
+
+/* 🎤 เริ่มระบบสั่งงานด้วยเสียง */
+function startVoice() {
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("เบราว์เซอร์นี้ไม่รองรับคำสั่งเสียง");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "th-TH";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.start();
+  speak("เจ้านายครับ โปรดออกคำสั่งได้เลยครับ");
+
+  recognition.onresult = function (event) {
+    let speechText = event.results[0][0].transcript.trim();
+    console.log("🎤 ได้ยิน:", speechText);
+
+    /* 🔍 หมวดถามว่ามีพระอะไรบ้าง */
+    if (
+      speechText.includes("มีพระอะไร") ||
+      speechText.includes("มีพระอะไรบ้าง") ||
+      speechText.includes("ตอนนี้มีพระอะไร") ||
+      speechText.includes("ในระบบมีพระอะไร")
+    ) {
+      listAllAmulets();
+      return;
+    }
+
+    /* 🔍 ค้นหาพระ */
+    speechText = speechText
+      .replace("ค้นหา", "")
+      .replace("เปิด", "")
+      .replace("ดู", "")
+      .trim();
+
+    let found = false;
+
+    for (const amulet of amulets) {
+      const match =
+        speechText.includes(amulet.name) ||
+        (amulet.keywords &&
+          amulet.keywords.some(k => speechText.includes(k)));
+
+      if (match) {
+        speak(`เปิด ${amulet.name} ให้แล้วครับเจ้านาย`);
+        window.open(amulet.url, "_blank");
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      speak("เจ้านายครับ ยังไม่พบพระในระบบครับ");
+    }
+  };
+
+  recognition.onerror = function () {
+    speak("ขออภัยครับเจ้านาย ระบบรับคำสั่งเสียงขัดข้อง");
+  };
+}

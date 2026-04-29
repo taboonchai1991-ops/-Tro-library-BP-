@@ -1,0 +1,27 @@
+project/
+│
+├── index.html              # 🔥 ศูนย์กลาง (Search + Voice + AI + Memory)
+├── google.html             # 📍 แยกตามจังหวัด
+├── icedrive.html           # ☁ พระเกจิเก่า
+├── icedrive4.html          # 🏺 พระโบราณ
+├── icedrive5.html          # 🌲 พระป่าสายกรรมฐาน
+├── mega.html               # 💾 พระยอดนิยม
+│
+├── css/
+│   └── style.css           # 🎨 UI ทั้งระบบ (dark/light, grid, effect)
+│
+├── js/
+│   ├── amulet-data.js      # 📦 ฐานข้อมูลพระ (มี category + keywords)
+│   ├── ai-db.js            # 🧠 intent AI (พระรอด / เนียม / ฝั้น)
+│   ├── ai-chat.js          # 💬 AI คุย (สวัสดี / แนะนำ / filter / search)
+│   ├── ai-engine.js        # 🤖 วิเคราะห์รวม (detectAI + detectChat)
+│   ├── memory.js           # 💾 Memory AI (จำคำล่าสุด / history)
+│   ├── voice.js            # 🎤 รับเสียง → ส่งไป app.js
+│   └── app.js              # 🔥 ตัวควบคุมหลัก (ศูนย์กลางระบบ)
+│
+├── assets/
+│   ├── img/                # 🖼 รูปพระ
+│   └── sound/              # 🔊 เสียงตอบ AI
+│
+└── data/                   # (เผื่ออนาคต)
+    └── amulets.json        # 📊 ถ้าย้าย DB ไป JSON

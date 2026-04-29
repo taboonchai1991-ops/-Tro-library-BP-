@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>พระลึกลับแดนสยาม</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+.search-input{
+  width:100%;
+  max-width:500px;
+  padding:15px;
+  font-size:1.1em;
+  border-radius:10px;
+  border:none;
+  margin:20px auto;
+  display:block;
+}
+.voice-btn{
+  display:block;
+  margin:10px auto 30px;
+  padding:10px 20px;
+  border-radius:30px;
+  border:none;
+  font-size:1.1em;
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  max-height:180px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+.ai-box{
+  margin-top:40px;
+  text-align:center;
+  opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+
+<div class="container">
+
+<h1>พระลึกลับแดนสยาม</h1>
+<p style="text-align:center;">ค้นหาพระเครื่องจากทุกอัลบั้ม(ใช้ในดารดูและศึกษาพระเท่านั้น)</p>
+
+<!-- 🔍 ค้นหา -->
+<input
+  type="text"
+  class="search-input"
+  id="searchInput"
+  placeholder="🔍 พิมพ์หรือพูดชื่อพระ..."
+  onkeyup="globalSearch()"
+/>
+
+<!-- 🎤 ปุ่มสั่งเสียง -->
+<button class="voice-btn" onclick="startVoice()">🎙️ ค้นหาด้วยเสียง</button>
+
+<!-- 📌 ผลลัพธ์ -->
+<div id="searchResult" class="gallery"></div>
+
+<!-- 🧠 AI แนะนำ -->
+<div id="aiSuggest" class="ai-box"></div>
+
+<hr style="margin:50px 0; opacity:0.3;">
+
+<!-- 🔗 เมนู -->
+<div style="text-align:center;">
+  <a href="./google.html" class="button">📷 จังหวัดต่างๆ</a>
+  <a href="./icedrive.html" class="button">☁ พระเกจิเก่า</a>
+  <a href="./icedrive4.html" class="button">🏺 พระโบราณ</a>
+  <a href="./mega.html" class="button">💾 พระเกจิยอดนิยม</a>
+</div>
+
+</div>
+
+<script src="js/amulet-data.js"></script>
+
+<script>
+/* 🌙 */
+function toggleMode(){
+  document.body.classList.toggle("light");
+}
+
+/* 🔍 ค้นหา */
+function globalSearch(){
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const box = document.getElementById("searchResult");
+  const ai = document.getElementById("aiSuggest");
+  box.innerHTML = "";
+  ai.innerHTML = "";
+
+  if(!q) return;
+
+  const found = amulets.filter(a=>a.name.toLowerCase().includes(q));
+
+  if(found.length === 0){
+    speak("เจ้านายครับ ยังไม่มีรายชื่อพระครับเจ้านาย");
+    ai.innerHTML = "🧠 ลองค้นคำใกล้เคียง เช่น พูดชื่อจังหวัด, พระกรุ, ";
+    return;
+  }
+
+  found.forEach(a=>{
+    const div = document.createElement("div");
+    div.className="card";
+    div.innerHTML = `
+      ${a.img ? `<img src="${a.img}">` : ""}
+      <a href="${a.url}" target="_blank">${a.name}</a>
+    `;
+    box.appendChild(div);
+  });
+
+  ai.innerHTML = "🧠 AI แนะนำ: ลองค้นชื่อพระที่คล้ายกัน";
+}
+
+/* 🔊 พูด */
+function speak(text){
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang="th-TH";
+  speechSynthesis.speak(msg);
+}
+
+/* 🎤 เสียง */
+function startVoice(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    alert("เบราว์เซอร์ไม่รองรับเสียง");
+    return;
+  }
+
+  const rec = new SpeechRecognition();
+  rec.lang="th-TH";
+  rec.start();
+
+  rec.onresult = e=>{
+    let text = e.results[0][0].transcript;
+    text = text.replace("ค้นหา","").trim();
+    document.getElementById("searchInput").value = text;
+    globalSearch();
+  };
+}
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,163 @@
+:root {
+  --bg-color: transparent; /* ไม่ใช้แล้ว */
+  --text-color: #ffffff;
+  --button-bg: rgba(255,255,255,0.12);
+  --button-text: #ffffff;
+  --link-color: #ffcc00;
+}
+
+/* ------------------ BODY ------------------ */
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  color: var(--text-color);
+  background: url('https://od.lk/s/N18yODQ0OTcyMDBf/789.jpg')
+              no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* ------------------ LIGHT MODE ------------------ */
+body.light {
+  --text-color: #000000;
+  --button-bg: rgba(255,255,255,0.4);
+  --button-text: #000000;
+  --link-color: #000000;
+}
+
+/* ------------------ CONTAINER ------------------ */
+.container {
+  padding: 50px 20px;
+  background: transparent; /* 🔥 ไม่เบลอ ไม่บัง */
+  min-height: 100vh;
+}
+
+/* ------------------ HEADINGS ------------------ */
+h1, h2 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 40px;
+}
+
+h2 {
+  margin: 40px 0 20px;
+}
+
+/* ------------------ GALLERY ------------------ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* ------------------ CARD (GLASS ONLY HERE) ------------------ */
+.card {
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+}
+
+.card a {
+  color: var(--link-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ------------------ BUTTON ------------------ */
+a.button {
+  display: inline-block;
+  margin: 20px;
+  padding: 15px 30px;
+
+  background: var(--button-bg);
+  border: 1px solid rgba(255,255,255,0.25);
+
+  color: var(--button-text);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 12px;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
+  transition: all 0.2s ease;
+}
+
+a.button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+a.button:active {
+  transform: scale(0.97);
+}
+
+/* ------------------ TOGGLE BUTTON ------------------ */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: var(--button-bg);
+  border: 1px solid rgba(255,255,255,0.25);
+
+  color: var(--button-text);
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  transform: translateY(-1px);
+}
+
+.toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* ------------------ VOICE BUTTON ------------------ */
+.voice-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 25px;
+
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background: var(--button-bg);
+
+  color: var(--button-text);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
+  transition: all 0.2s ease;
+}
+
+.voice-btn:hover {
+  transform: translateY(-2px);
+}

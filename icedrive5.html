@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>พระป่าสายกรรมฐาน</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+body{
+  background: radial-gradient(circle at center,#0b1a0f,#000);
+  color:#c8ffdc;
+}
+
+h2{
+  text-align:center;
+  text-shadow:0 0 10px #00ff99;
+}
+
+.card a{
+  color:#9effc3;
+  text-decoration:none;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #00ff99;
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+
+<div class="container">
+  <h2>🌲 พระป่าสายกรรมฐาน</h2>
+  <p style="text-align:center;">รวมพระเกจิสายวัดป่า เน้นปฏิบัติธรรม สมาธิ และพุทธคุณภายใน</p>
+
+  <!-- 🎤 Voice -->
+  <button class="voice-btn" onclick="startVoice()">🎤 ค้นหาด้วยเสียง</button>
+
+  <div class="gallery">
+
+    <div class="card">
+      <a href="https://icedrive.net/s/YTVRj2Q2F5C7jw7iVATySXz12t4D" target="_blank">
+        หลวงปู่ฝั้น อาจาโร วัดป่าอุดมสมพร
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="https://icedrive.net/s/x6GVaxSRgGuDyxvNAYPVVNZQ6DbN" target="_blank">
+        หลวงปู่ฝั้น อาจาโร (รวมชุด)
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#" target="_blank">
+        หลวงปู่มั่น ภูริทัตโต
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#" target="_blank">
+        หลวงตามหาบัว ญาณสัมปันโน
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#" target="_blank">
+        หลวงปู่ชา สุภัทโท
+      </a>
+    </div>
+
+    <div class="card">
+      <a href="#" target="_blank">
+        หลวงปู่ขาว อนาลโย
+      </a>
+    </div>
+
+  </div>
+<script>
+function toggleMode(){
+  document.body.classList.toggle('light');
+}
+</script>
+
+<script src="js/voice.js"></script>
+
+</body>
+</html>

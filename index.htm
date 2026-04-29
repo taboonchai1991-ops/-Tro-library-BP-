@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>libraryพระลึกลับแดนสยาม</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<button class="toggle-btn" onclick="toggleMode()">🌙 / ☀️</button>
+
+<div class="container">
+  <h1>(Tro)libraryพระลึกลับแดนสยาม(BP)</h1>
+  <p class="text-center">🗣️ ค้นหาพระเครื่องจากทุกอัลบั้ม (ใช้เพื่อศึกษาเท่านั้น)</p>
+
+  <input type="text" class="search-input" id="searchInput" placeholder="🔍 พิมพ์หรือพูดชื่อพระ..." onkeyup="globalSearch(false)">
+  <button class="voice-btn" onclick="startVoice()">🎙️ ค้นหาด้วยเสียง</button>
+
+  <div id="searchResult" class="gallery"></div>
+  <div id="aiSuggest" class="ai-box"></div>
+
+  <hr>
+  <div class="text-center">
+    <a href="./google.html" class="button">📷 จังหวัดต่างๆ</a>
+    <a href="./icedrive.html" class="button">☁ พระเกจิเก่า</a>
+    <a href="./icedrive4.html" class="button">🏺 พระโบราณ</a>
+    <a href="./mega.html" class="button">💾 พระเกจิยอดนิยม</a>
+    <a href="./icedrive5.html" class="button">🌲 พระป่าสายกรรมฐาน</a>
+    <a href="./icedrive6.html" class="button">📌 พระเครื่องทุกจังหวัด</a>
+  </div>
+</div>
+
+<script src="js/amulet-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
